@@ -45,4 +45,24 @@ describe('DetailReply entities', () => {
     expect(detailReply.username).toEqual(payload.username);
     expect(detailReply.date).toEqual(payload.date);
   });
+
+  it('should create DetailReply object correctly when isDeleted', () => {
+    // Arrange
+    const payload = {
+      id: 'reply-123',
+      content: 'reply',
+      username: 'user',
+      date: new Date().toISOString(),
+      isDeleted: true,
+    };
+
+    // Action
+    const detailReply = new DetailReply(payload);
+
+    // Assert
+    expect(detailReply.id).toEqual(payload.id);
+    expect(detailReply.content).toEqual('**balasan telah dihapus**');
+    expect(detailReply.username).toEqual(payload.username);
+    expect(detailReply.date).toEqual(payload.date);
+  });
 });

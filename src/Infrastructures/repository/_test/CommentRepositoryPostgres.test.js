@@ -88,8 +88,9 @@ describe('CommentRepositoryPostgres', () => {
       await CommentsTableTestHelper.addComment({ id: commentId, owner: userId });
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+      const result = await commentRepositoryPostgres.checkCommentAvailability(commentId);
 
-      await expect(commentRepositoryPostgres.checkCommentAvailability(commentId)).resolves.not.toThrowError();
+      expect(result).toBe(true);
     });
   });
 
@@ -100,7 +101,6 @@ describe('CommentRepositoryPostgres', () => {
       await CommentsTableTestHelper.addComment({ id: commentId, thread: 'thread-999', owner: 'user-999' });
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
-
       await expect(commentRepositoryPostgres.verifyCommentOwner(commentId, userId)).rejects.toThrowError(
         AuthorizationError,
       );
@@ -113,7 +113,9 @@ describe('CommentRepositoryPostgres', () => {
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
-      await expect(commentRepositoryPostgres.verifyCommentOwner(commentId, userId)).resolves.not.toThrowError();
+      const result = await commentRepositoryPostgres.verifyCommentOwner(commentId, userId);
+
+      expect(result).toBe(true);
     });
   });
 
@@ -131,11 +133,7 @@ describe('CommentRepositoryPostgres', () => {
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
-      await commentRepositoryPostgres.addComment({
-        threadId,
-        userId,
-        payload,
-      });
+      await commentRepositoryPostgres.addComment(threadId, userId, payload);
 
       const comments = await CommentsTableTestHelper.findCommentsById(commentId);
       expect(comments).toHaveLength(1);
@@ -154,11 +152,7 @@ describe('CommentRepositoryPostgres', () => {
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action
-      const addedComment = await commentRepositoryPostgres.addComment({
-        threadId,
-        userId,
-        payload,
-      });
+      const addedComment = await commentRepositoryPostgres.addComment(threadId, userId, payload);
 
       // Assert
       expect(addedComment).toStrictEqual(

@@ -12,11 +12,7 @@ class ThreadHandler {
     const response = h.response({
       status: 'success',
       data: {
-        addedThread: {
-          id: addedThread.id,
-          title: addedThread.title,
-          owner: addedThread.owner_id,
-        },
+        addedThread,
       },
     });
     response.code(201);

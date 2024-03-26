@@ -43,6 +43,8 @@ class CommentRepositoryPostgres extends CommentRepository {
     if (!result.rowCount) {
       throw new NotFoundError('comment tidak ditemukan');
     }
+
+    return true;
   }
 
   async verifyCommentOwner(commentId, owner) {
@@ -56,9 +58,11 @@ class CommentRepositoryPostgres extends CommentRepository {
     if (comment.created_by !== owner) {
       throw new AuthorizationError('Anda tidak mempunyai hak akses atas komentar ini');
     }
+
+    return true;
   }
 
-  async addComment({ threadId, userId, payload }) {
+  async addComment(threadId, userId, payload) {
     const { content } = payload;
     const id = `comment-${this._idGenerator()}`;
     const date = new Date().toISOString();

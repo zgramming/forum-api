@@ -51,7 +51,8 @@ describe('ReplyRepositoryPostgres', () => {
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action & Assert
-      await expect(replyRepositoryPostgres.checkReplyAvailability('reply-123')).resolves.not.toThrowError();
+      const result = await replyRepositoryPostgres.checkReplyAvailability('reply-123');
+      expect(result).toStrictEqual(true);
     });
   });
 
@@ -81,7 +82,8 @@ describe('ReplyRepositoryPostgres', () => {
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action & Assert
-      await expect(replyRepositoryPostgres.verifyReplyOwner('reply-999', userId)).resolves.not.toThrowError();
+      const result = await replyRepositoryPostgres.verifyReplyOwner('reply-999', userId);
+      expect(result).toStrictEqual(true);
     });
   });
 
