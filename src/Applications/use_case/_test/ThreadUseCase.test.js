@@ -19,7 +19,7 @@ describe('ThreadUseCase', () => {
 
     const mockNewThread = new AddedThread({
       id: 'thread-123',
-      title: useCasePayload.title,
+        title: useCasePayload.title,
       owner,
     });
 
@@ -42,6 +42,8 @@ describe('ThreadUseCase', () => {
         owner: mockNewThread.owner,
       }),
     );
+
+    expect(mockThreadRepository.addThread).toBeCalledWith(useCasePayload, owner);
   });
 
   it('DetailThread should orchestrating the get thread action correctly', async () => {
@@ -158,5 +160,11 @@ describe('ThreadUseCase', () => {
         ],
       }),
     );
+
+    expect(mockThreadRepository.getThreadById).toBeCalledWith(threadId);
+    expect(mockThreadRepository.checkAvailableThread).toBeCalledWith(threadId);
+    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(threadId);
+    expect(mockReplyRepository.getReplyByThreadId).toBeCalledWith(threadId);
+    
   });
 });

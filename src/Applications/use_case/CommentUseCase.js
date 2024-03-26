@@ -10,11 +10,7 @@ class CommentUseCase {
     await this._threadRepository.checkAvailableThread(threadId);
 
     const newComment = new NewComment(payload);
-    return this._commentRepository.addComment({
-      threadId,
-      userId,
-      payload: newComment,
-    });
+    return this._commentRepository.addComment(threadId, userId, newComment);
   }
 
   async deleteCommentById({ threadId, commentId, userId }) {
