@@ -104,6 +104,11 @@ describe('ThreadRepositoryPostgres', () => {
 
       // Assert
       expect(thread.id).toEqual('thread-123');
+      expect(thread.title).toEqual('dicoding');
+      expect(thread.body).toEqual('Thread body');
+      expect(thread.username).toEqual('dicoding');
+      expect(thread.date).toBeDefined();
+      expect(thread.owner_id).toEqual(ownerId);
     });
   });
 });
