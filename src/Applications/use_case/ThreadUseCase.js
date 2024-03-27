@@ -22,22 +22,22 @@ class ThreadUseCase {
     const comments = await this._commentRepository.getCommentsByThreadId(threadId);
     const replies = await this._replyRepository.getReplyByThreadId(threadId);
 
-    result.comments = comments.map((comment) => {
+    const mappingComments = comments.map((comment) => {
       const filterReplies = replies.filter((reply) => reply.comment_id === comment.id);
       const result = new CommentDetail({
         id: comment.id,
         content: comment.content,
         username: comment.username,
-        date: comment.date,
-        isDeleted: comment.isDeleted,
+        date: new Date(comment.date).toISOString(),
+        isDeleted: comment.is_delete,
         replies: filterReplies.map(
           (reply) =>
             new DetailReply({
               id: reply.id,
               content: reply.content,
               username: reply.username,
-              date: reply.date,
-              isDeleted: reply.isDeleted,
+              date: new Date(reply.date).toISOString(),
+              isDeleted: reply.is_delete,
             }),
         ),
       });
@@ -51,7 +51,7 @@ class ThreadUseCase {
       body: result.body,
       username: result.username,
       date: new Date(result.date).toISOString(),
-      comments: result.comments,
+      comments: mappingComments,
     });
 
     return thread;

@@ -133,7 +133,7 @@ describe('ReplyRepositoryPostgres', () => {
       expect(reply.username).toEqual('yusuf');
       expect(reply.date).toBeDefined();
       expect(reply.content).toEqual(content);
-      expect(reply.isDeleted).toEqual(false);
+      expect(reply.is_delete).toEqual(false);
     });
   });
 
