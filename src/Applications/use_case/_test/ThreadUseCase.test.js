@@ -15,7 +15,7 @@ describe('ThreadUseCase', () => {
     const useCasePayload = {
       title: 'dicoding',
       body: 'secret',
-    };  
+    };
 
     const mockNewThread = new AddedThread({
       id: 'thread-123',
@@ -63,14 +63,14 @@ describe('ThreadUseCase', () => {
         username: 'dicoding',
         date: new Date('2021-08-10').toISOString(),
         content: 'ini komen',
-        isDeleted: false,
+        is_delete: false,
       },
       {
         id: 'comment-124',
         username: 'dicoding',
         date: new Date('2021-08-11').toISOString(),
         content: 'ini komen 2',
-        isDeleted: true,
+        is_delete: false,
       },
     ];
 
@@ -80,7 +80,7 @@ describe('ThreadUseCase', () => {
         username: 'dicoding',
         date: new Date('2021-08-12').toISOString(),
         content: 'ini balasan komen',
-        isDeleted: false,
+        is_delete: false,
         comment_id: 'comment-123',
       },
       {
@@ -88,7 +88,7 @@ describe('ThreadUseCase', () => {
         username: 'dicoding',
         date: new Date('2021-08-13').toISOString(),
         content: 'ini balasan komen 2',
-        isDeleted: true,
+        is_delete: true,
         comment_id: 'comment-123',
       },
     ];
@@ -97,8 +97,8 @@ describe('ThreadUseCase', () => {
     const mockCommentRepository = new CommentRepository();
     const mockReplyRepository = new RepliesRepository();
 
-    mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve(mockThread));
     mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve());
+    mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve(mockThread));
     mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockComment));
     mockReplyRepository.getReplyByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockReplies));
 
@@ -107,7 +107,6 @@ describe('ThreadUseCase', () => {
       threadRepository: mockThreadRepository,
       replyRepository: mockReplyRepository,
     });
-
 
     // Action
     const thread = await threadUseCase.getThreadById(threadId);
@@ -132,21 +131,21 @@ describe('ThreadUseCase', () => {
             username: firstComment.username,
             date: firstComment.date,
             content: firstComment.content,
-            isDeleted: firstComment.isDeleted,
+            isDeleted: firstComment.is_delete,
             replies: [
               new ReplyDetail({
                 id: firstReply.id,
                 username: firstReply.username,
                 date: firstReply.date,
                 content: firstReply.content,
-                isDeleted: firstReply.isDeleted,
+                isDeleted: firstReply.is_delete,
               }),
               new ReplyDetail({
                 id: secondReply.id,
                 username: secondReply.username,
                 date: secondReply.date,
                 content: secondReply.content,
-                isDeleted: secondReply.isDeleted,
+                isDeleted: secondReply.is_delete,
               }),
             ],
           }),
@@ -155,7 +154,7 @@ describe('ThreadUseCase', () => {
             username: secondComment.username,
             date: secondComment.date,
             content: secondComment.content,
-            isDeleted: secondComment.isDeleted,
+            isDeleted: secondComment.is_delete,
             replies: [],
           }),
         ],

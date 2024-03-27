@@ -29,7 +29,7 @@ class ThreadUseCase {
         content: comment.content,
         username: comment.username,
         date: new Date(comment.date).toISOString(),
-        isDeleted: comment.isDeleted,
+        isDeleted: comment.is_delete,
         replies: filterReplies.map(
           (reply) =>
             new DetailReply({
@@ -37,7 +37,7 @@ class ThreadUseCase {
               content: reply.content,
               username: reply.username,
               date: new Date(reply.date).toISOString(),
-              isDeleted: reply.isDeleted,
+              isDeleted: reply.is_delete,
             }),
         ),
       });
