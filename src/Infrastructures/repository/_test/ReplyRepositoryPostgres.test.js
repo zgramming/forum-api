@@ -117,10 +117,18 @@ describe('ReplyRepositoryPostgres', () => {
 
     it('should return replies correctly', async () => {
       // Arrange
+      const mockReply = {
+        id: 'reply-999',
+        comment: commentId,
+        owner: userId,
+        content,
+        date: new Date('2021-08-08T07:22:13.000Z'),
+        isDelete: false,
+      };
       await UsersTableTestHelper.addUser({ id: userId, username: 'yusuf', fullname: 'yusuf' });
       await ThreadTableTestHelper.addThread({ id: threadId, ownerId: userId });
       await CommentsTableTestHelper.addComment({ id: commentId, owner: userId, thread: threadId });
-      await ReplyTableTestHelper.addReply({ id: 'reply-999', comment: commentId, owner: userId, content });
+      await ReplyTableTestHelper.addReply(mockReply);
 
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, fakeIdGenerator);
 
@@ -130,8 +138,9 @@ describe('ReplyRepositoryPostgres', () => {
       // Assert
       expect(replies).toHaveLength(1);
       expect(reply.id).toEqual('reply-999');
+      expect(reply.comment_id).toEqual(commentId);
       expect(reply.username).toEqual('yusuf');
-      expect(reply.date).toBeDefined();
+      expect(reply.date).toEqual(mockReply.date);
       expect(reply.content).toEqual(content);
       expect(reply.is_delete).toEqual(false);
     });

@@ -97,7 +97,7 @@ describe('ThreadUseCase', () => {
     const mockCommentRepository = new CommentRepository();
     const mockReplyRepository = new RepliesRepository();
 
-    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve());
+    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(true));
     mockThreadRepository.getThreadById = jest.fn().mockImplementation(() => Promise.resolve(mockThread));
     mockCommentRepository.getCommentsByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockComment));
     mockReplyRepository.getReplyByThreadId = jest.fn().mockImplementation(() => Promise.resolve(mockReplies));
