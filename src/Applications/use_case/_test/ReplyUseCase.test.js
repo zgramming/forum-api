@@ -60,10 +60,10 @@ describe('ReplyUseCase', () => {
     const mockCommentRepository = new CommentRepository();
     const mockRepliesRepository = new RepliesRepository();
 
-    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve());
-    mockCommentRepository.checkCommentAvailability = jest.fn().mockImplementation(() => Promise.resolve());
-    mockRepliesRepository.checkReplyAvailability = jest.fn().mockImplementation(() => Promise.resolve());
-    mockRepliesRepository.verifyReplyOwner = jest.fn().mockImplementation(() => Promise.resolve());
+    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(true));
+    mockCommentRepository.checkCommentAvailability = jest.fn().mockImplementation(() => Promise.resolve(true));
+    mockRepliesRepository.checkReplyAvailability = jest.fn().mockImplementation(() => Promise.resolve(true));
+    mockRepliesRepository.verifyReplyOwner = jest.fn().mockImplementation(() => Promise.resolve(true));
     mockRepliesRepository.deleteReplyById = jest.fn().mockImplementation(() => Promise.resolve());
 
     const replyUseCase = new ReplyUseCase({
