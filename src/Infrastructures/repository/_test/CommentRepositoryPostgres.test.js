@@ -47,6 +47,7 @@ describe('CommentRepositoryPostgres', () => {
         content: 'first comment',
         thread: threadId,
         date: firstDate,
+        isDelete: false,
       });
 
       await CommentsTableTestHelper.addComment({
@@ -55,6 +56,7 @@ describe('CommentRepositoryPostgres', () => {
         content: 'second comment',
         thread: threadId,
         date: secondDate,
+        isDelete: false,
       });
 
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
@@ -68,13 +70,17 @@ describe('CommentRepositoryPostgres', () => {
 
       expect(firstComment.id).toEqual(commentId);
       expect(firstComment.content).toEqual('first comment');
-      expect(firstComment.username).toEqual('john');
       expect(firstComment.date).toEqual(firstDate);
+      expect(firstComment.created_by).toEqual(userId);
+      expect(firstComment.is_delete).toEqual(false);
+      expect(firstComment.username).toEqual('john');
 
       expect(secondComment.id).toEqual(anotherCommentId);
       expect(secondComment.content).toEqual('second comment');
-      expect(secondComment.username).toEqual('doe');
       expect(secondComment.date).toEqual(secondDate);
+      expect(secondComment.created_by).toEqual(anotherUserId);
+      expect(secondComment.is_delete).toEqual(false);
+      expect(secondComment.username).toEqual('doe');
     });
   });
 
