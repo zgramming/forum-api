@@ -17,7 +17,7 @@ class CommentUseCase {
     await this._threadRepository.checkAvailableThread(threadId);
     await this._commentRepository.checkCommentAvailability(commentId);
     await this._commentRepository.verifyCommentOwner(commentId, userId);
-    return this._commentRepository.deleteCommentById(threadId, commentId, userId);
+    return this._commentRepository.deleteCommentById(threadId, commentId);
   }
 }
 

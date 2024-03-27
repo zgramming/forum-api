@@ -55,6 +55,7 @@ describe('ThreadUseCase', () => {
       body: 'secret',
       username: 'dicoding',
       date: '2021-08-09',
+      owner_id: 'user-123',
     };
 
     const mockComment = [

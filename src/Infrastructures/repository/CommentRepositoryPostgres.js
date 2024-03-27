@@ -75,8 +75,7 @@ class CommentRepositoryPostgres extends CommentRepository {
     });
   }
 
-  async deleteCommentById(threadId, commentId, userId) {
-    await this.verifyCommentOwner(commentId, userId);
+  async deleteCommentById(threadId, commentId) {
     const query = {
       text: `UPDATE threads_comment 
       SET deleted_at = NOW(),
