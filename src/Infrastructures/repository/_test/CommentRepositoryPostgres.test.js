@@ -39,8 +39,8 @@ describe('CommentRepositoryPostgres', () => {
       });
 
       // Create 2 comments for the thread
-      const firstDate = new Date('2024-01-01T00:00:00.000Z')
-      const secondDate = new Date('2024-01-02T00:00:00.000Z')
+      const firstDate = new Date('2024-01-01T00:00:00.000Z');
+      const secondDate = new Date('2024-01-02T00:00:00.000Z');
       await CommentsTableTestHelper.addComment({
         id: commentId,
         owner: userId,
@@ -184,7 +184,7 @@ describe('CommentRepositoryPostgres', () => {
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action
-      await commentRepositoryPostgres.deleteCommentById(threadId, commentId, userId);
+      await commentRepositoryPostgres.deleteCommentById(threadId, commentId);
 
       // Assert
       const comments = await CommentsTableTestHelper.findCommentsById(commentId);

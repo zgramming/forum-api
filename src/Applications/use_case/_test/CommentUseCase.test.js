@@ -77,6 +77,6 @@ describe('CommentUseCase', () => {
     expect(mockThreadRepository.checkAvailableThread).toBeCalledWith('thread-123');
     expect(mockCommentRepository.checkCommentAvailability).toBeCalledWith('comment-123');
     expect(mockCommentRepository.verifyCommentOwner).toBeCalledWith('comment-123', 'user-123');
-    expect(mockCommentRepository.deleteCommentById).toBeCalledWith('thread-123', 'comment-123', 'user-123');
+    expect(mockCommentRepository.deleteCommentById).toBeCalledWith('thread-123', 'comment-123');
   });
 });
