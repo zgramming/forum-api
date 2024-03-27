@@ -75,6 +75,7 @@ describe('ReplyUseCase', () => {
     // Assert
     expect(mockThreadRepository.checkAvailableThread).toBeCalledWith('thread-123');
     expect(mockCommentRepository.checkCommentAvailability).toBeCalledWith('comment-123');
+    expect(mockRepliesRepository.checkReplyAvailability).toBeCalledWith('reply-123');
     expect(mockRepliesRepository.verifyReplyOwner).toBeCalledWith('reply-123', 'user-123');
     expect(mockRepliesRepository.deleteReplyById).toBeCalledWith('reply-123');
   });

@@ -124,7 +124,7 @@ describe('ThreadUseCase', () => {
         title: mockThread.title,
         body: mockThread.body,
         username: mockThread.username,
-        date: mockThread.date,
+        date: new Date(mockThread.date).toISOString(),
         comments: [
           new CommentDetail({
             id: firstComment.id,
@@ -165,6 +165,5 @@ describe('ThreadUseCase', () => {
     expect(mockThreadRepository.checkAvailableThread).toBeCalledWith(threadId);
     expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(threadId);
     expect(mockReplyRepository.getReplyByThreadId).toBeCalledWith(threadId);
-    
   });
 });

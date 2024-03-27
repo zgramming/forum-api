@@ -50,7 +50,7 @@ class ThreadUseCase {
       title: result.title,
       body: result.body,
       username: result.username,
-      date: result.date,
+      date: new Date(result.date).toISOString(),
       comments: result.comments,
     });
 

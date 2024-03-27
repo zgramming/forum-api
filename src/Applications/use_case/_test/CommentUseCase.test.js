@@ -56,9 +56,9 @@ describe('CommentUseCase', () => {
     const mockThreadRepository = new ThreadRepository();
     const mockCommentRepository = new CommentRepository();
 
-    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve());
-    mockCommentRepository.checkCommentAvailability = jest.fn().mockImplementation(() => Promise.resolve());
-    mockCommentRepository.verifyCommentOwner = jest.fn().mockImplementation(() => Promise.resolve());
+    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(true));
+    mockCommentRepository.checkCommentAvailability = jest.fn().mockImplementation(() => Promise.resolve(true));
+    mockCommentRepository.verifyCommentOwner = jest.fn().mockImplementation(() => Promise.resolve(true));
     mockCommentRepository.deleteCommentById = jest.fn().mockImplementation(() => Promise.resolve());
 
     const commentUseCase = new CommentUseCase({
