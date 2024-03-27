@@ -15,11 +15,11 @@ describe('ThreadUseCase', () => {
     const useCasePayload = {
       title: 'dicoding',
       body: 'secret',
-    };
+    };  
 
     const mockNewThread = new AddedThread({
       id: 'thread-123',
-        title: useCasePayload.title,
+      title: useCasePayload.title,
       owner,
     });
 
@@ -108,10 +108,11 @@ describe('ThreadUseCase', () => {
       replyRepository: mockReplyRepository,
     });
 
+
     // Action
     const thread = await threadUseCase.getThreadById(threadId);
 
-    // Assert
+    // // Assert
     const firstComment = mockComment[0];
     const secondComment = mockComment[1];
 

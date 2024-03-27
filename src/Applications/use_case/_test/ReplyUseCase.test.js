@@ -21,9 +21,17 @@ describe('ReplyUseCase', () => {
     const mockCommentRepository = new CommentRepository();
     const mockRepliesRepository = new RepliesRepository();
 
-    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve());
-    mockCommentRepository.checkCommentAvailability = jest.fn().mockImplementation(() => Promise.resolve());
-    mockRepliesRepository.addReplyByCommentId = jest.fn().mockImplementation(() => Promise.resolve(mockAddedReply));
+    mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(true));
+    mockCommentRepository.checkCommentAvailability = jest.fn().mockImplementation(() => Promise.resolve(true));
+    mockRepliesRepository.addReplyByCommentId = jest.fn().mockImplementation(() =>
+      Promise.resolve(
+        new AddedReply({
+          id: 'reply-123',
+          content: payload.content,
+          owner: 'user-123',
+        }),
+      ),
+    );
 
     const replyUseCase = new ReplyUseCase({
       commentRepository: mockCommentRepository,

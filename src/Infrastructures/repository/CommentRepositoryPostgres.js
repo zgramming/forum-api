@@ -24,13 +24,7 @@ class CommentRepositoryPostgres extends CommentRepository {
     };
     const result = await this._pool.query(query);
 
-    return result.rows.map((row) => ({
-      id: row.id,
-      username: row.username,
-      date: new Date(row.date).toISOString(),
-      content: row.content,
-      isDeleted: row.is_delete,
-    }));
+    return result.rows;
   }
 
   async checkCommentAvailability(commentId) {

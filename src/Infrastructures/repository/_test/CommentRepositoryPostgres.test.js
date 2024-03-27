@@ -33,11 +33,14 @@ describe('CommentRepositoryPostgres', () => {
       await UsersTableTestHelper.addUser({ id: anotherUserId, username: 'doe' });
 
       // Create 1 thread
-      await ThreadTableTestHelper.addThread({ id: threadId, ownerId: userId });
+      await ThreadTableTestHelper.addThread({
+        id: threadId,
+        ownerId: userId,
+      });
 
       // Create 2 comments for the thread
-      const firstDate = new Date('2024-01-01').toISOString();
-      const secondDate = new Date('2024-01-02').toISOString();
+      const firstDate = new Date('2024-01-01T00:00:00.000Z')
+      const secondDate = new Date('2024-01-02T00:00:00.000Z')
       await CommentsTableTestHelper.addComment({
         id: commentId,
         owner: userId,
@@ -66,12 +69,12 @@ describe('CommentRepositoryPostgres', () => {
       expect(firstComment.id).toEqual(commentId);
       expect(firstComment.content).toEqual('first comment');
       expect(firstComment.username).toEqual('john');
-      expect(firstComment.date).toBeTruthy();
+      expect(firstComment.date).toEqual(firstDate);
 
       expect(secondComment.id).toEqual(anotherCommentId);
       expect(secondComment.content).toEqual('second comment');
       expect(secondComment.username).toEqual('doe');
-      expect(secondComment.date).toBeTruthy();
+      expect(secondComment.date).toEqual(secondDate);
     });
   });
 
