@@ -65,6 +65,7 @@ describe('ThreadUseCase', () => {
         date: new Date('2021-08-10').toISOString(),
         content: 'ini komen',
         is_delete: false,
+        like_count: 1,
       },
       {
         id: 'comment-124',
@@ -72,6 +73,7 @@ describe('ThreadUseCase', () => {
         date: new Date('2021-08-11').toISOString(),
         content: 'ini komen 2',
         is_delete: false,
+        like_count: 2,
       },
     ];
 
@@ -133,6 +135,7 @@ describe('ThreadUseCase', () => {
             date: firstComment.date,
             content: firstComment.content,
             isDeleted: firstComment.is_delete,
+            likeCount: firstComment.like_count,
             replies: [
               new ReplyDetail({
                 id: firstReply.id,
@@ -156,6 +159,7 @@ describe('ThreadUseCase', () => {
             date: secondComment.date,
             content: secondComment.content,
             isDeleted: secondComment.is_delete,
+            likeCount: secondComment.like_count,
             replies: [],
           }),
         ],

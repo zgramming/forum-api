@@ -14,10 +14,13 @@ class CommentRepositoryPostgres extends CommentRepository {
     const query = {
       text: `
         SELECT comments.id, comments.content, comments.date, comments.created_by, comments.is_delete, 
-        users.username
+        users.username,
+        COUNT(likes.id) AS like_count
         FROM threads_comment AS comments
         LEFT JOIN users ON comments.created_by = users.id
-        WHERE comments.thread_id = $1 
+        LEFT JOIN likes ON comments.id = likes.comment_id
+        WHERE comments.thread_id = $1
+        GROUP BY comments.id, users.username
         ORDER BY comments.date ASC
         `,
       values: [threadId],

@@ -43,5 +43,5 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('comments');
+  pgm.dropTable('threads_comment');
 };

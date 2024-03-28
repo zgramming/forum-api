@@ -21,6 +21,7 @@ describe('CommentDetail entities', () => {
       date: new Date().toISOString(),
       isDeleted: true,
       replies: {},
+      likeCount: '1',
     };
 
     // Action & Assert
@@ -36,6 +37,7 @@ describe('CommentDetail entities', () => {
       date: new Date().toISOString(),
       isDeleted: false,
       replies: [],
+      likeCount: 1,
     };
 
     // Action
@@ -48,6 +50,7 @@ describe('CommentDetail entities', () => {
     expect(commentDetail.date).toEqual(payload.date);
     expect(commentDetail.isDeleted).toEqual(payload.isDeleted);
     expect(commentDetail.replies).toEqual(payload.replies);
+    expect(commentDetail.likeCount).toEqual(payload.likeCount);
   });
 
   it('should create CommentDetail object correctly when isDeleted', () => {
@@ -59,6 +62,7 @@ describe('CommentDetail entities', () => {
       date: new Date().toISOString(),
       isDeleted: true,
       replies: [],
+      likeCount: 1,
     };
 
     // Action
@@ -71,6 +75,7 @@ describe('CommentDetail entities', () => {
     expect(commentDetail.date).toEqual(payload.date);
     expect(commentDetail.isDeleted).toEqual(payload.isDeleted);
     expect(commentDetail.replies).toEqual([]);
+    expect(commentDetail.likeCount).toEqual(payload.likeCount);
   });
 
   it('should create CommentDetail object correctly when there is no replies', () => {
@@ -81,6 +86,7 @@ describe('CommentDetail entities', () => {
       username: 'user',
       date: new Date().toISOString(),
       isDeleted: false,
+      likeCount: 1,
     };
 
     // Action
@@ -93,5 +99,6 @@ describe('CommentDetail entities', () => {
     expect(commentDetail.date).toEqual(payload.date);
     expect(commentDetail.isDeleted).toEqual(payload.isDeleted);
     expect(commentDetail.replies).toEqual([]);
+    expect(commentDetail.likeCount).toEqual(payload.likeCount);
   });
 });
