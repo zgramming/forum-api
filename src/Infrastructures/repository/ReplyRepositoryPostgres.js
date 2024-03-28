@@ -107,7 +107,14 @@ class ReplyRepositoryPostgres extends RepliesRepository {
       values: [replyId],
     };
 
-    await this._pool.query(query);
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError('balasan tidak ditemukan');
+    }
+
+    return result.rows[0].id;
+
   }
 }
 

@@ -68,6 +68,25 @@ describe('CommentRepositoryPostgres', () => {
 
       expect(comments).toHaveLength(2);
 
+      expect(comments).toStrictEqual([
+        {
+          id: commentId,
+          content: 'first comment',
+          date: firstDate,
+          created_by: userId,
+          is_delete: false,
+          username: 'john',
+        },
+        {
+          id: anotherCommentId,
+          content: 'second comment',
+          date: secondDate,
+          created_by: anotherUserId,
+          is_delete: false,
+          username: 'doe',
+        },
+      ]);
+
       expect(firstComment.id).toEqual(commentId);
       expect(firstComment.content).toEqual('first comment');
       expect(firstComment.date).toEqual(firstDate);
@@ -189,6 +208,20 @@ describe('CommentRepositoryPostgres', () => {
       // Assert
       const comments = await CommentsTableTestHelper.findCommentsById(commentId);
       expect(comments[0].is_delete).toEqual(true);
+    });
+
+    it('should throw error when thread not available', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({ id: 'user-999' });
+      await ThreadTableTestHelper.addThread({ id: 'thread-999', ownerId: 'user-999' });
+      await CommentsTableTestHelper.addComment({ id: 'comment-999', thread: 'thread-999', owner: 'user-999' });
+
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action & Assert
+      await expect(commentRepositoryPostgres.deleteCommentById(threadId, commentId)).rejects.toThrowError(
+        NotFoundError,
+      );
     });
   });
 });

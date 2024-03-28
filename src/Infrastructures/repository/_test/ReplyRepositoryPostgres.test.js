@@ -213,5 +213,13 @@ describe('ReplyRepositoryPostgres', () => {
       const reply = replies[0];
       expect(reply.is_delete).toEqual(true);
     });
+
+    it('should throw NotFoundError when reply not available', async () => {
+      // Arrange
+      const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action & Assert
+      await expect(replyRepositoryPostgres.deleteReplyById('reply-999')).rejects.toThrowError(NotFoundError);
+    });
   });
 });

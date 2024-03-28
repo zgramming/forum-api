@@ -21,13 +21,15 @@ describe('CommentUseCase', () => {
     const mockCommentRepository = new CommentRepository();
 
     mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(true));
-    mockCommentRepository.addComment = jest.fn().mockImplementation(() => Promise.resolve(
-      new AddedComment({
-        id: 'comment-123',
-        content: payload.content,
-        owner: 'user-123',  
-      }),
-    ));
+    mockCommentRepository.addComment = jest.fn().mockImplementation(() =>
+      Promise.resolve(
+        new AddedComment({
+          id: 'comment-123',
+          content: payload.content,
+          owner: 'user-123',
+        }),
+      ),
+    );
 
     const commentUseCase = new CommentUseCase({
       commentRepository: mockCommentRepository,
@@ -59,7 +61,7 @@ describe('CommentUseCase', () => {
     mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(true));
     mockCommentRepository.checkCommentAvailability = jest.fn().mockImplementation(() => Promise.resolve(true));
     mockCommentRepository.verifyCommentOwner = jest.fn().mockImplementation(() => Promise.resolve(true));
-    mockCommentRepository.deleteCommentById = jest.fn().mockImplementation(() => Promise.resolve());
+    mockCommentRepository.deleteCommentById = jest.fn().mockImplementation(() => Promise.resolve('comment-123'));
 
     const commentUseCase = new CommentUseCase({
       commentRepository: mockCommentRepository,
