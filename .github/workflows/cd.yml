@@ -21,10 +21,11 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            whoami
             cd /home/nexttemplatecms/forum-api
-            sudo git pull origin main --rebase
-            sudo npm install
-            sudo npm run migrate up
-            sudo npm run test
-            sudo pm2 del forum-api
-            sudo pm2 start npm --name "forum-api" -- run start
+            git pull origin main --rebase
+            npm install
+            npm run migrate up
+            npm run test
+            pm2 del forum-api
+            pm2 start npm --name "forum-api" -- run start
