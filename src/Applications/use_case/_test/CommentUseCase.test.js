@@ -21,15 +21,13 @@ describe('CommentUseCase', () => {
     const mockCommentRepository = new CommentRepository();
 
     mockThreadRepository.checkAvailableThread = jest.fn().mockImplementation(() => Promise.resolve(true));
-    mockCommentRepository.addComment = jest.fn().mockImplementation(() =>
-      Promise.resolve(
+    mockCommentRepository.addComment = jest.fn().mockImplementation(() => Promise.resolve(
         new AddedComment({
           id: 'comment-123',
           content: payload.content,
           owner: 'user-123',
         }),
-      ),
-    );
+      ));
 
     const commentUseCase = new CommentUseCase({
       commentRepository: mockCommentRepository,

@@ -23,6 +23,7 @@ class CommentHandler {
       },
     });
     response.code(201);
+
     return response;
   }
 

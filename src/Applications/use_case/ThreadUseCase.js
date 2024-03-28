@@ -4,19 +4,22 @@ const DetailThread = require('../../Domains/threads/entities/DetailThread');
 const DetailReply = require('../../Domains/replies/entities/DetailReply');
 
 class ThreadUseCase {
-  constructor({ threadRepository, commentRepository, replyRepository }) {
+  constructor({ threadRepository, commentRepository, replyRepository, likeRepository }) {
     this._threadRepository = threadRepository;
     this._commentRepository = commentRepository;
     this._replyRepository = replyRepository;
+    this._likeRepository = likeRepository;
+
+    this.getThreadById = this.getThreadById.bind(this);
   }
 
-  async addThread(payload, userId) {
+  addThread = async (payload, userId) => {
     const newThread = new NewThread(payload);
     const result = this._threadRepository.addThread(newThread, userId);
     return result;
-  }
+  };
 
-  async getThreadById(threadId) {
+  getThreadById = async (threadId) => {
     await this._threadRepository.checkAvailableThread(threadId);
     const result = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getCommentsByThreadId(threadId);
@@ -24,12 +27,13 @@ class ThreadUseCase {
 
     const mappingComments = comments.map((comment) => {
       const filterReplies = replies.filter((reply) => reply.comment_id === comment.id);
-      const result = new CommentDetail({
+      const cmt = new CommentDetail({
         id: comment.id,
         content: comment.content,
         username: comment.username,
         date: new Date(comment.date).toISOString(),
         isDeleted: comment.is_delete,
+        likeCount: parseInt(comment.like_count, 10),
         replies: filterReplies.map(
           (reply) =>
             new DetailReply({
@@ -42,7 +46,7 @@ class ThreadUseCase {
         ),
       });
 
-      return result;
+      return cmt;
     });
 
     const thread = new DetailThread({
@@ -55,7 +59,7 @@ class ThreadUseCase {
     });
 
     return thread;
-  }
+  };
 }
 
 module.exports = ThreadUseCase;

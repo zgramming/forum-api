@@ -76,6 +76,7 @@ describe('CommentRepositoryPostgres', () => {
           created_by: userId,
           is_delete: false,
           username: 'john',
+          like_count: '0',
         },
         {
           id: anotherCommentId,
@@ -84,6 +85,7 @@ describe('CommentRepositoryPostgres', () => {
           created_by: anotherUserId,
           is_delete: false,
           username: 'doe',
+          like_count: '0',
         },
       ]);
 
