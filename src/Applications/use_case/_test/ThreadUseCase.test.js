@@ -37,9 +37,9 @@ describe('ThreadUseCase', () => {
     // Assert
     expect(newThread).toStrictEqual(
       new AddedThread({
-        id: mockNewThread.id,
-        title: useCasePayload.title,
-        owner: mockNewThread.owner,
+        id: 'thread-123',
+        title: 'dicoding',
+        owner: 'user-123',
       }),
     );
 

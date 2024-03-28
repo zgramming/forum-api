@@ -85,7 +85,13 @@ class CommentRepositoryPostgres extends CommentRepository {
       values: [commentId, threadId],
     };
 
-    await this._pool.query(query);
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError('Komentar gagal dihapus. Id tidak ditemukan');
+    }
+
+    return result.rows[0].id;
   }
 }
 
