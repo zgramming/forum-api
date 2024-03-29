@@ -31,4 +31,4 @@ jobs:
             whoami
             sudo su
             
-            sudo su -c deploy.sh
+            sudo su -c ./deploy.sh
