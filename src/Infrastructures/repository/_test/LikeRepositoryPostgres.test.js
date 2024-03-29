@@ -14,10 +14,10 @@ describe('LikeRepositoryPostgres', () => {
   const fakeIdGenerator = () => '123';
 
   afterEach(async () => {
-    await UsersTableTestHelper.cleanTable();
-    await ThreadTableTestHelper.cleanTable();
-    await CommentsTableTestHelper.cleanTable();
     await LikesTableTestHelper.cleanTable();
+    await CommentsTableTestHelper.cleanTable();
+    await ThreadTableTestHelper.cleanTable();
+    await UsersTableTestHelper.cleanTable();
   });
 
   afterAll(async () => {
