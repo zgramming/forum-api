@@ -31,14 +31,4 @@ jobs:
             whoami
             sudo su
             
-            echo "Pulling changes from GitHub 🧐"
-            sudo su -c "git pull origin main --rebase"
-            
-            echo "Installing dependencies and running tests 🧪"
-            npm install
-            npm run migrate up
-            npm run test
-
-            echo "Restarting the server 🔄"
-            # pm2 del forum-api
-            # pm2 start npm --name "forum-api" -- run start
+            sudo su -c deploy.sh
