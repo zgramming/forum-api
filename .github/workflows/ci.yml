@@ -47,10 +47,20 @@ jobs:
           CI: true
           HOST: ${{ secrets.HOST }}
           PORT: ${{ secrets.PORT }}
+          
+          # Test database
+          PGHOST_TEST: ${{ secrets.PGHOST }}
+          PGUSER_TEST: ${{ secrets.PGUSER }}
+          PGPASSWORD_TEST: ${{ secrets.PGPASSWORD }}
+          PGDATABASE_TEST: ${{ secrets.PGDATABASE }}
+          PGPORT_TEST: ${{ secrets.PGPORT }}
+          
+          # Main database
           PGHOST: ${{ secrets.PGHOST }}
           PGUSER: ${{ secrets.PGUSER }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGPORT: ${{ secrets.PGPORT }}
+          
           ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
           REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
