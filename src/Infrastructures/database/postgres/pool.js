@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 const { Pool } = require('pg');
 
+// Add your own configuration here
 const testConfig = {
   host: process.env.PGHOST_TEST,
   port: process.env.PGPORT_TEST,
