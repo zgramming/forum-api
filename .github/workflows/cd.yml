@@ -28,7 +28,19 @@ jobs:
             
             cd /home/nexttemplatecms/forum-api
 
+            echo "Setup user permissions 🛡️"
             whoami
             sudo su
-            
-            sudo su -c ./deploy.sh
+            sudo chown -R $USER:$(id -gn $USER) /home/nexttemplatecms/forum-api
+
+            echo "Pulling latest changes from GitHub 🔄"
+            git pull origin main --rebase
+
+            echo "Installing dependencies 📦"
+            npm install
+            npm run migrate up
+            npm run test
+
+            echo "Restarting the server 🔄"
+            pm2 del forum-api
+            pm2 start npm --name "forum-api" -- run start
