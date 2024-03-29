@@ -15,6 +15,16 @@ jobs:
 
       - name: Deploy using SSH
         uses: appleboy/ssh-action@master
+        env:
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
+          PGHOST: ${{ secrets.PGHOST }}
+          PGUSER: ${{ secrets.PGUSER }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGPORT: ${{ secrets.PGPORT }}
+          ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
+          REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
@@ -38,9 +48,11 @@ jobs:
 
             echo "Installing dependencies 📦"
             npm install
-            npm run migrate up
-            npm run test
-
+            
             echo "Restarting the server 🔄"
             pm2 del forum-api
             pm2 start npm --name "forum-api" -- run start
+            
+            echo "Running migrations & tests 🧪"
+            npm run migrate up
+            npm run test
