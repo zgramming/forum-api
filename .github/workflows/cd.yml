@@ -55,4 +55,5 @@ jobs:
             
             echo "Running migrations & tests 🧪"
             npm run migrate up
+            npm run migrate:test up
             npm run test
