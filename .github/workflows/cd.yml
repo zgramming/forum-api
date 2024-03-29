@@ -21,9 +21,6 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            whoami
-            sudo su
-            
             echo "Setting up Node.js & PM2 🚀"
 
             export NVM_DIR=~/.nvm
@@ -31,13 +28,16 @@ jobs:
             
             cd /home/nexttemplatecms/forum-api
 
+            whoami
+            sudo su
+            
             echo "Pulling changes from GitHub 🧐"
-            git pull origin main --rebase
+            sudo su -c "git pull origin main --rebase"
             
             echo "Installing dependencies and running tests 🧪"
-            npm install
-            # npm run migrate up
-            # npm run test
+            sudo su -c "npm install"
+            sudo su -c "npm run migrate up"
+            sudo su -c "npm run test"
 
             echo "Restarting the server 🔄"
             # pm2 del forum-api
